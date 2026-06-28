@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hi Abiroo ❤️</title>
+
+<style>
+:root{
+  --bg1:#ff8fb1;
+  --bg2:#7b61ff;
+  --glass:rgba(255,255,255,0.08);
+  --text:#fff;
+  --muted:rgba(255,255,255,0.8);
+  --accent:#ff4d94;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:system-ui;
+  background:linear-gradient(120deg,var(--bg1),var(--bg2));
+  overflow:hidden;
+  color:var(--text);
+}
+
+/* HEARTS */
+.hearts{position:fixed;inset:0;pointer-events:none;}
+.heart{
+  position:absolute;
+  width:12px;height:12px;
+  background:var(--accent);
+  transform:rotate(45deg);
+  animation:float 8s linear infinite;
+}
+.heart:before,.heart:after{
+  content:"";
+  position:absolute;
+  width:12px;height:12px;
+  background:var(--accent);
+  border-radius:50%;
+}
+.heart:before{left:-6px}
+.heart:after{top:-6px}
+
+@keyframes float{
+  from{transform:translateY(100vh) rotate(45deg)}
+  to{transform:translateY(-10vh) rotate(45deg)}
+}
+
+/* APP */
+.app{
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.card{
+  width:100%;
+  max-width:900px;
+  background:var(--glass);
+  backdrop-filter:blur(10px);
+  border-radius:20px;
+  padding:25px;
+}
+
+/* PAGES */
+.page{display:none}
+.page.active{display:block}
+
+h1,h2{margin:0 0 10px}
+p{color:var(--muted);line-height:1.5}
+
+.btn{
+  padding:10px 16px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  background:#fff;
+  color:#000;
+  margin-top:10px;
+  font-weight:600;
+}
+.btn.alt{background:transparent;color:#fff;border:1px solid #fff}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:10px;
+}
+.box{
+  padding:12px;
+  background:rgba(255,255,255,0.1);
+  border-radius:12px;
+}
+
+/* BIG HEART */
+.big{
+  font-size:60px;
+  animation:beat 1s infinite;
+}
+@keyframes beat{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.2)}
+}
+
+/* POPUP */
+.popup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.5);
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+.popup.show{display:flex}
+.popup-box{
+  background:#fff;
+  color:#000;
+  padding:20px;
+  border-radius:12px;
+  text-align:center;
+}
+
+/* TOAST */
+.toast{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#000;
+  color:#fff;
+  padding:10px 14px;
+  border-radius:8px;
+  opacity:0;
+  transition:0.3s;
+}
+.toast.show{opacity:1}
+
+</style>
+</head>
+
+<body>
+
+<div class="hearts" id="hearts"></div>
+
+<div class="app">
+<div class="card">
+
+<!-- PAGE 1 -->
+<div class="page active">
+<h1>Hi Abiroo ❤️</h1>
+<p>I made something very special just for you.</p>
+<button class="btn" onclick="next()">Begin Our Journey</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page">
+<h2>A Small Request</h2>
+<p>Please stay till the end.</p>
+<button class="btn" onclick="next()">Next</button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page">
+<h2>Our Story</h2>
+<p>From friends to something special ❤️</p>
+<button class="btn" onclick="next()">Next</button>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page">
+<h2>Dear Abiroo</h2>
+<p>You became the most important person in my life.</p>
+<button class="btn" onclick="next()">Next</button>
+</div>
+
+<!-- PAGE 5 -->
+<div class="page">
+<h2>Why I Love You</h2>
+<div class="grid">
+<div class="box">Your smile</div>
+<div class="box">Your kindness</div>
+<div class="box">Your care</div>
+<div class="box">Your vibe</div>
+</div>
+<button class="btn" onclick="next()">Next</button>
+</div>
+
+<!-- PAGE 6 -->
+<div class="page">
+<h2>Promises</h2>
+<p>I promise to always respect, support and care for you ❤️</p>
+<button class="btn" onclick="next()">Next</button>
+</div>
+
+<!-- PAGE 7 -->
+<div class="page">
+<div class="big">❤️</div>
+<h2>There is only one question left...</h2>
+<button class="btn" onclick="next()">Continue</button>
+</div>
+
+<!-- PAGE 8 -->
+<div class="page">
+<h2>Will you be my girlfriend?</h2>
+<button class="btn" onclick="yes()">YES ❤️</button>
+<button class="btn alt" onclick="no()">NO 💔</button>
+<p id="noMsg"></p>
+</div>
+
+<!-- PAGE 9 -->
+<div class="page">
+<h2>Questions</h2>
+<p id="q">Will you send me a voice note?</p>
+<button class="btn" onclick="ans('YES')">YES</button>
+<button class="btn" onclick="ans('NO')">NO</button>
+<button class="btn" id="finish" style="display:none" onclick="finish()">Finish</button>
+</div>
+
+<!-- PAGE 10 -->
+<div class="page">
+<h2>Thank You ❤️</h2>
+<p>You made me the happiest person.</p>
+<button class="btn" onclick="copy()">Copy Answers</button>
+</div>
+
+</div>
+</div>
+
+<!-- POPUP -->
+<div class="popup" id="popup">
+<div class="popup-box">
+<h3>Thank You ❤️</h3>
+<button class="btn" onclick="closePopup()">Close</button>
+</div>
+</div>
+
+<div class="toast" id="toast">Copied ❤️</div>
+
+<script>
+let pages=document.querySelectorAll(".page");
+let i=0;
+let answers=[];
+
+function show(n){
+pages.forEach(p=>p.classList.remove("active"));
+pages[n].classList.add("active");
+i=n;
+}
+
+function next(){show(i+1)}
+
+function yes(){
+launchConfetti();
+show(8);
+setTimeout(()=>show(9),1200);
+}
+
+function no(){
+document.getElementById("noMsg").innerText="I'll always respect your decision ❤️";
+}
+
+/* QUESTIONS */
+let qs=[
+"Will you send me a voice note?",
+"Will you send me your photo?",
+"Will you go on a date with me?"
+];
+let qi=0;
+
+function ans(a){
+answers.push({q:qs[qi],a});
+qi++;
+if(qi<qs.length){
+document.getElementById("q").innerText=qs[qi];
+}else{
+document.getElementById("finish").style.display="block";
+}
+}
+
+function finish(){
+show(9);
+}
+
+function copy(){
+navigator.clipboard.writeText(JSON.stringify(answers,null,2));
+document.getElementById("toast").classList.add("show");
+setTimeout(()=>document.getElementById("toast").classList.remove("show"),2000);
+document.getElementById("popup").classList.add("show");
+}
+
+function closePopup(){
+document.getElementById("popup").classList.remove("show");
+}
+
+/* HEARTS */
+let h=document.getElementById("hearts");
+for(let i=0;i<25;i++){
+let d=document.createElement("div");
+d.className="heart";
+d.style.left=Math.random()*100+"%";
+d.style.animationDuration=(5+Math.random()*8)+"s";
+h.appendChild(d);
+}
+
+/* CONFETTI */
+function launchConfetti(){
+for(let i=0;i<60;i++){
+let c=document.createElement("div");
+c.style.position="fixed";
+c.style.left=Math.random()*100+"%";
+c.style.top="-10px";
+c.style.width="6px";
+c.style.height="6px";
+c.style.background="#fff";
+document.body.appendChild(c);
+setTimeout(()=>c.remove(),2000);
+}
+}
+</script>
+
+</body>
+</html>
